@@ -32,3 +32,5 @@ class EstateProperty(models.Model):
       default="new",
       help="Sales process stage"
     )
+    # a property can have ONE type but a type can have MANY properties
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")

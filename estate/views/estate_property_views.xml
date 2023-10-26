@@ -21,12 +21,13 @@
         <field name="expected_price"/>
         <field name="selling_price"/>
         <field name="date_availability" string="Available From"/>
+        <field name="property_type_id" string="Property type id"/>
       </tree>
     </field>
   </record>
 
 
-  <!-- Search  -->
+  <!-- Search (= gérer les différentes manières de chercher le model )-->
   <record id="estate_serach_record" model="ir.ui.view">
     <field name="name">estate.property.search</field>
     <field name="model">estate.property</field>
@@ -88,16 +89,11 @@
                 <field name="state"/>
               </group>
             </page>
-
-            <!-- <page string="Details">
+            <page string="Other info">
               <group>
-                <group>
-                  <field name="bedrooms"/>
-                  <field name="bathrooms"/>
-                  <field name="living_area"/>
-                </group>
+                <field name="property_type_id"/>
               </group>
-            </page> -->
+            </page>
           </notebook>
         </sheet>
       </form>
