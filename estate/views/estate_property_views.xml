@@ -8,25 +8,48 @@
   </record>
 
 
-	<!--- List -->
+	<!--- List (= index) -->
   <record id="estate_property_tree" model="ir.ui.view">
-      <field name="name">estate.property.tree</field>
-      <field name="model">estate.property</field>
-      <field name="arch" type="xml">
-        <tree string="Property Test">
-          <field name="name" string="Title"/>
-          <field name="postcode" string="Postcode" />
-          <field name="bedrooms"/>
-          <field name="living_area" string="Living Area (sqm)" />
-          <field name="expected_price"/>
-          <field name="selling_price"/>
-          <field name="date_availability" string="Available From"/>
-        </tree>
-      </field>
+    <field name="name">estate.property.tree</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+      <tree string="Property Test">
+        <field name="name" string="Title"/>
+        <field name="postcode" string="Postcode" />
+        <field name="bedrooms"/>
+        <field name="living_area" string="Living Area (sqm)" />
+        <field name="expected_price"/>
+        <field name="selling_price"/>
+        <field name="date_availability" string="Available From"/>
+      </tree>
+    </field>
   </record>
 
 
-  <!-- Form -->
+  <!-- Search  -->
+  <record id="estate_serach_record" model="ir.ui.view">
+    <field name="name">estate.property.search</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" string="Title"/>
+        <field name="description"/>
+        <field name="postcode"/>
+        <field name="expected_price"/>
+        <field name="bedrooms"/>
+        <field name="living_area" string="Living Area (sqm)"/>
+        <field name="facades"/>
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+        <filter string="Number of Bedrooms" name="filter_bedrooms" context="{'group_by': 'bedrooms'}"/>
+        <filter string="Postcode" name="filter_postcode" context="{'group_by': 'postcode'}"/>
+        <filter name="available" string="Available Properties" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]"/>
+      </search>
+    </field>
+  </record>
+
+
+
+  <!-- Form  (= show + edit )-->
   <record id="estate_property_form" model="ir.ui.view">
     <field name="name">Estate</field>
     <field name="model">estate.property</field>
@@ -41,9 +64,9 @@
           </div>
           <group>
             <group>
-              <field name="name"/>
-              <field name="postcode"/>
-              <field name="date_availability"/>
+                <field name="postcode"/>
+                <field name="date_availability"/>
+                <field name="date_availability"/>
             </group>
             <group>
               <field name="expected_price"/>
@@ -62,6 +85,7 @@
                 <field name="garden"/>
                 <field name="garden_area"/>
                 <field name="garden_orientation"/>
+                <field name="state"/>
               </group>
             </page>
 
