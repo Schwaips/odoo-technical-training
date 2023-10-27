@@ -1,6 +1,6 @@
 from odoo import models, fields
 from dateutil.relativedelta import relativedelta
-from datetime import timedelta, datetime
+from datetime import datetime
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -34,3 +34,5 @@ class EstateProperty(models.Model):
     )
     # a property can have ONE type but a type can have MANY properties
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    salesperson_id = fields.Many2one("res.users", string="Salesperson", default=lambda self: self.env.user)
+    buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)

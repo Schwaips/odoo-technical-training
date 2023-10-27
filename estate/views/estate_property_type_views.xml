@@ -18,4 +18,21 @@
       </tree>
     </field>
   </record>
+
+  <!-- Form  (= show + edit ) -->
+  <record id="estate_property_type_form" model="ir.ui.view">
+    <field name="name">Estate</field>
+    <field name="model">estate.property.type</field>
+    <field name="arch" type="xml">
+      <form string="Estate Property">
+        <sheet>
+          <div class="oe_title">
+           <h1 class="mb32">
+              <field placeholder="My New House" name="name" class="mb16"/> <!-- name=<nom du champ> -->
+            </h1>
+          </div>
+        </sheet>
+      </form>
+    </field>
+  </record>
 </odoo>
