@@ -41,7 +41,8 @@
         <field name="living_area" string="Living Area (sqm)"/>
         <field name="facades"/>
         <field name="salesperson_id"/>
-        <field name="buyer_id"/>
+        <field name="partner_id"/>
+        <field name="tag_ids" string="Tag"/>
         <field name="property_type_id" string="Type de propriete"/>
         <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
         <filter string="Number of Bedrooms" name="filter_bedrooms" context="{'group_by': 'bedrooms'}"/>
@@ -49,7 +50,8 @@
         <filter name="available" string="Available Properties" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]"/>
         <filter name="Type" string="Type" context="{'group_by': 'property_type_id'}"/>
         <filter name="Sales person" context="{'group_by': 'salesperson_id'}"/>
-        <filter name="Buyer" context="{'group_by': 'buyer_id'}"/>
+        <filter name="Buyer" context="{'group_by': 'partner_id'}"/>
+        <filter name="Tag" string="Tags" context="{'group_by': 'tag_ids'}"/>
       </search>
     </field>
   </record>
@@ -64,9 +66,10 @@
       <form string="Estate Property">
         <sheet>
           <div class="oe_title">
-            <h1 class="mb32">
+            <h1 class="mb8">
                 <field placeholder="My New House" name="name" class="mb16"/> <!-- name=<nom du champ> -->
             </h1>
+            <field name="tag_ids" widget="many2many_tags" placeholder="Tags..."/>
             <field name="active" invisible="1"/>
           </div>
           <group>
@@ -98,8 +101,18 @@
               <group>
                 <field name="property_type_id"/>
                 <field name="salesperson_id"/>
-                <field name="buyer_id"/>
+                <field name="partner_id"/>
               </group>
+            </page>
+            <page string="Offers">
+              <field name="offer_ids" widget="one2many_list">
+                <!-- is it the good tree here ? to confirm -->
+                <tree string="Offers">
+                  <field name="price"/>
+                  <field name="partner_id"/>
+                  <field name="status"/>
+                </tree>
+              </field>
             </page>
           </notebook>
         </sheet>

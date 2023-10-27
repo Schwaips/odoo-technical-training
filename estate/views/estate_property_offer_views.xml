@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- <record id="estate_property_offer_action" model="ir.actions.act_window">
+    <field name="name">Property Offer</field>
+    <field name="res_model">estate.property.offer</field>
+    <field name="view_mode">tree,form</field>
+  </record> -->
+
+  <!--- List (= index) -->
+  <record id="estate_property_type_tree" model="ir.ui.view">
+    <field name="name">estate.property.offer.tree</field>
+    <field name="model">estate.property.offer</field>
+    <field name="arch" type="xml">
+      <tree string="Property Tag">
+        <field name="price" string="Price"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Form  (= show + edit ) -->
+  <record id="estate_property_offer_form" model="ir.ui.view">
+    <field name="name">Estate offer</field>
+    <field name="model">estate.property.offer</field>
+    <field name="arch" type="xml">
+      <form string="Estate offer">
+        <sheet>
+          <div class="oe_title">
+            <h1 class="mb32">
+              Offer <!-- name=<nom du champ> -->
+            </h1>
+          </div>
+          <group>
+            <group>
+              <field name="partner_id"/>
+              <field name="status"/>
+              <field name="price"/>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>
