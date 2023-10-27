@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="estate_property_type_action" model="ir.actions.act_window">
-    <field name="name">Property Type</field>
-    <field name="res_model">estate.property.type</field>
+  <record id="estate_property_tag_action" model="ir.actions.act_window">
+    <field name="name">Property Tag</field>
+    <field name="res_model">estate.property.tag</field>
     <field name="view_mode">tree,form</field>
   </record>
 
@@ -10,19 +10,19 @@
 
   	<!--- List (= index) -->
   <record id="estate_property_type_tree" model="ir.ui.view">
-    <field name="name">estate.property.type.tree</field>
-    <field name="model">estate.property.type</field>
+    <field name="name">estate.property.tag.tree</field>
+    <field name="model">estate.property.tag</field>
     <field name="arch" type="xml">
-      <tree string="Property Type">
+      <tree string="Property Tag">
         <field name="name" string="Nom"/>
       </tree>
     </field>
   </record>
 
   <!-- Form  (= show + edit ) -->
-  <record id="estate_property_type_form" model="ir.ui.view">
-    <field name="name">Estate</field>
-    <field name="model">estate.property.type</field>
+  <record id="estate_property_tag_form" model="ir.ui.view">
+    <field name="name">Estate Tag</field>
+    <field name="model">estate.property.tag</field>
     <field name="arch" type="xml">
       <form string="Estate Property">
         <sheet>
