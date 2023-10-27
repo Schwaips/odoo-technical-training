@@ -47,9 +47,14 @@ class EstateProperty(models.Model):
     # et property_id fait référence à l'instance du model estate.property (model sur lequel se trouve)
     # Si il y a une relation One2Many sur estate.property.offer, alors il y a une relation Many2One sur estate.property.offer 
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
-
+    best_price = fields.Float(compute="_compute_best_price", store=True)
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
+
+    @api.depends("offer_ids.price")
+    def _compute_best_price(self):
+        for record in self:
+            record.best_price = max(record.offer_ids.mapped("price")) if record.offer_ids else 0
