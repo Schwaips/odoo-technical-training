@@ -50,7 +50,6 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
     best_price = fields.Float(compute="_compute_best_price", store=True)
 
-
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)', 'Expected price must be positive!'),
         ('check_selling_price', 'CHECK(selling_price > 0)', 'Selling price must be positive!'),
@@ -59,19 +58,19 @@ class EstateProperty(models.Model):
 
     @api.constrains('selling_price')
     def _check_selling_price(self):
-       for record in self:
-          if record.selling_price < record.expected_price * 0.9:
-            raise ValidationError("Selling price cannot be lower than 90% of the expected price")
+      for record in self:
+        if record.selling_price < record.expected_price * 0.9:
+          raise ValidationError("Selling price cannot be lower than 90% of the expected price")
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
-        for record in self:
-            record.total_area = record.living_area + record.garden_area
+      for record in self:
+          record.total_area = record.living_area + record.garden_area
 
     @api.depends("offer_ids.price")
     def _compute_best_price(self):
-        for record in self:
-            record.best_price = max(record.offer_ids.mapped("price")) if record.offer_ids else 0
+      for record in self:
+          record.best_price = max(record.offer_ids.mapped("price")) if record.offer_ids else 0
 
     @api.onchange("garden")
     def _onchange_garden(self):

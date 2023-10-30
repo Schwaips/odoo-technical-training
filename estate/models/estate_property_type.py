@@ -9,3 +9,5 @@ class EstatePropertyType(models.Model):
   _sql_constraints = [
     ('name_unique', 'unique(name)', 'Type name already exists!'),
   ]
+
+  property_ids = fields.One2many("estate.property", "property_type_id", string="Properties")
