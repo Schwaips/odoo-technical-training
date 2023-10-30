@@ -6,7 +6,9 @@ from datetime import datetime
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Property"
+    _order = "id desc"
 
+    sequence = fields.Integer("Sequence", default=1, help="Used to order the properties")
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()

@@ -8,7 +8,7 @@
 
 
 
-  	<!--- List (= index) -->
+  <!--- List (= index) -->
   <record id="estate_property_type_tree" model="ir.ui.view">
     <field name="name">estate.property.tag.tree</field>
     <field name="model">estate.property.tag</field>
@@ -31,6 +31,7 @@
               <field placeholder="My New House" name="name" class="mb16"/> <!-- name=<nom du champ> -->
             </h1>
           </div>
+          <field name="color" />
         </sheet>
       </form>
     </field>
