@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError, ValidationError
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
@@ -49,6 +50,19 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
     best_price = fields.Float(compute="_compute_best_price", store=True)
 
+
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)', 'Expected price must be positive!'),
+        ('check_selling_price', 'CHECK(selling_price > 0)', 'Selling price must be positive!'),
+    ]
+
+
+    @api.constrains('selling_price')
+    def _check_selling_price(self):
+       for record in self:
+          if record.selling_price < record.expected_price * 0.9:
+            raise ValidationError("Selling price cannot be lower than 90% of the expected price")
+
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
         for record in self:
@@ -67,3 +81,23 @@ class EstateProperty(models.Model):
       else:
         self.garden_area = 10
         self.garden_orientation = "north"
+    
+    def set_estate_property_to_sold(self):
+      for record in self:
+        if record.state == "canceled":
+          raise UserError("You cannot set a canceled property to sold")
+        # elif record.state == "sold":
+        #    raise UserError("Already sold")
+        else: 
+          record.state = "sold"
+          record.selling_price = record.best_price
+          offer_id_to_accept = record.offer_ids.filtered(lambda r: r.price == record.best_price) if record.offer_ids else False
+          record.partner_id = offer_id_to_accept.partner_id if offer_id_to_accept else False
+      return True
+    
+    def set_estate_property_to_cancel(self):
+      for record in self:
+        if record.state == "sold":
+          raise UserError("You cannot set a sold property to canceled")
+        else: 
+          record.state = "canceled"
